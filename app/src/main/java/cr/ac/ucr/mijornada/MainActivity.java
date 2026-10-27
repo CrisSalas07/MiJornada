@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
         Button buttonRegister = findViewById(R.id.buttonRegister);
         buttonRegister.setOnClickListener(v -> registerActivity());
 
+        Button buttonDeleteLast = findViewById(R.id.buttonDeleteLast);
+        buttonDeleteLast.setOnClickListener(v -> deleteLastActivity());
+
         render();
     }
 
@@ -89,6 +93,17 @@ public class MainActivity extends AppCompatActivity {
         editName.getText().clear();
         editMinutes.getText().clear();
         editName.requestFocus();
+    }
+
+    /**
+     * Removes the most recent activity, or tells the user there is nothing to remove.
+     */
+    private void deleteLastActivity() {
+        if (studyLog.removeLast()) {
+            render();
+        } else {
+            Toast.makeText(this, R.string.toast_empty_list, Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
