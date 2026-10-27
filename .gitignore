@@ -1,0 +1,22 @@
+# Build outputs (any module)
+build/
+.gradle/
+.externalNativeBuild/
+.cxx/
+captures/
+*.apk
+*.aab
+
+# Machine-specific SDK path
+local.properties
+
+# IDE files
+.idea/
+*.iml
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Delivery archive produced by package.ps1
+*_IF0009_AndroidNativo.zip
