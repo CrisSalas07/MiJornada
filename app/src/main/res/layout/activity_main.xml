@@ -58,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_large"
             android:labelFor="@id/editMinutes"
-            android:text="@string/label_minutes"
-            android:textSize="@dimen/text_body" />
+            android:textSize="@dimen/text_body"
+            tools:text="Minutos dedicados (1 a 480)" />
 
         <!-- maxLength 3 is enough for the maximum of 480 and keeps oversized numbers out of the field. -->
         <EditText
