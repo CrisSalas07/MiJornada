@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cr.ac.ucr.mijornada.model.ActividadEstudio;
@@ -24,6 +25,9 @@ import cr.ac.ucr.mijornada.model.StudyLog;
  * stores valid activities in a {@link StudyLog} and shows the list and summary. All rules live in the model.
  */
 public class MainActivity extends AppCompatActivity {
+
+    private static final String KEY_NAMES = "names";
+    private static final String KEY_MINUTES = "minutes";
 
     private final StudyLog studyLog = new StudyLog();
 
@@ -60,7 +64,43 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDeleteLast = findViewById(R.id.buttonDeleteLast);
         buttonDeleteLast.setOnClickListener(v -> deleteLastActivity());
 
+        // Null on the first launch; non-null when Android recreates the Activity, e.g. after a rotation.
+        if (savedInstanceState != null) {
+            restoreActivities(savedInstanceState);
+        }
         render();
+    }
+
+    /**
+     * Saves the activities before the Activity is destroyed by a configuration change such as a rotation.
+     * A Bundle cannot hold our own objects directly, so each field goes into its own list in the same order.
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<Integer> minutes = new ArrayList<>();
+        for (ActividadEstudio activity : studyLog.getActivities()) {
+            names.add(activity.getNombre());
+            minutes.add(activity.getMinutos());
+        }
+        outState.putStringArrayList(KEY_NAMES, names);
+        outState.putIntegerArrayList(KEY_MINUTES, minutes);
+    }
+
+    /**
+     * Rebuilds the activities from the two parallel lists saved in {@link #onSaveInstanceState}.
+     */
+    private void restoreActivities(Bundle savedInstanceState) {
+        ArrayList<String> names = savedInstanceState.getStringArrayList(KEY_NAMES);
+        ArrayList<Integer> minutes = savedInstanceState.getIntegerArrayList(KEY_MINUTES);
+        if (names == null || minutes == null) {
+            return;
+        }
+        // Position i of both lists belongs to the same activity, so the original order is kept.
+        for (int i = 0; i < names.size(); i++) {
+            studyLog.add(new ActividadEstudio(names.get(i), minutes.get(i)));
+        }
     }
 
     /**
