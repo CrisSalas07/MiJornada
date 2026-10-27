@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -76,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
      * A Bundle cannot hold our own objects directly, so each field goes into its own list in the same order.
      */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         ArrayList<String> names = new ArrayList<>();
         ArrayList<Integer> minutes = new ArrayList<>();
