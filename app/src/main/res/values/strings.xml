@@ -1,3 +1,31 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MIJornada</string>
+
+    <!-- Header -->
+    <string name="title">Mi jornada de estudio</string>
+    <!-- AUTHOR: replace APELLIDO with your surname. -->
+    <string name="author" tools:ignore="Typos">Autor: Cristopher APELLIDO</string>
+
+    <!-- Form -->
+    <string name="label_name">Nombre de la actividad</string>
+    <string name="label_minutes">Minutos dedicados</string>
+    <string name="button_register">Registrar actividad</string>
+    <string name="button_delete_last">Eliminar último</string>
+
+    <!-- Validation messages; the range is passed in from ActivityValidator so it lives in one place. -->
+    <string name="error_empty_name">Escriba el nombre de la actividad.</string>
+    <string name="error_invalid_minutes">Escriba los minutos como un número entero.</string>
+    <string name="error_out_of_range">Los minutos deben estar entre %1$d y %2$d.</string>
+    <string name="toast_empty_list">No hay actividades para eliminar.</string>
+
+    <!-- List and summary -->
+    <string name="list_title">Actividades registradas</string>
+    <string name="list_empty">Aún no hay actividades registradas.</string>
+    <!-- %1$d = position, %2$s = activity name, %3$d = minutes. -->
+    <string name="list_item">%1$d. %2$s — %3$d min</string>
+    <!-- Plural on the activity count so Spanish reads "1 actividad" / "2 actividades". %2$d = total minutes. -->
+    <plurals name="summary">
+        <item quantity="one">Resumen: %1$d actividad, %2$d min en total</item>
+        <item quantity="other">Resumen: %1$d actividades, %2$d min en total</item>
+    </plurals>
 </resources>

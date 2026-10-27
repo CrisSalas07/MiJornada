@@ -1,19 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<!-- A ScrollView can hold only one direct child, so everything goes inside a single vertical LinearLayout.
+     Scrolling keeps every control reachable on small screens and while the keyboard is open. -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="@dimen/screen_padding">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title"
+            android:textSize="@dimen/text_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textAuthor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:text="@string/author"
+            android:textSize="@dimen/text_small" />
+
+        <!-- labelFor links the label to its field so screen readers announce it; lint asks for labelFor or hint, not both. -->
+        <TextView
+            android:id="@+id/labelName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:labelFor="@id/editName"
+            android:text="@string/label_name"
+            android:textSize="@dimen/text_body" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:minHeight="@dimen/touch_target"
+            android:textSize="@dimen/text_body" />
+
+        <TextView
+            android:id="@+id/labelMinutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:labelFor="@id/editMinutes"
+            android:text="@string/label_minutes"
+            android:textSize="@dimen/text_body" />
+
+        <!-- maxLength 3 is enough for the maximum of 480 and keeps oversized numbers out of the field. -->
+        <EditText
+            android:id="@+id/editMinutes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="3"
+            android:minHeight="@dimen/touch_target"
+            android:textSize="@dimen/text_body" />
+
+        <Button
+            android:id="@+id/buttonRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:minHeight="@dimen/touch_target"
+            android:text="@string/button_register"
+            android:textSize="@dimen/text_body" />
+
+        <Button
+            android:id="@+id/buttonDeleteLast"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:minHeight="@dimen/touch_target"
+            android:text="@string/button_delete_last"
+            android:textSize="@dimen/text_body" />
+
+        <!-- liveRegion "polite": TalkBack reads the new summary after each change without interrupting. -->
+        <TextView
+            android:id="@+id/textSummary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:accessibilityLiveRegion="polite"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold"
+            tools:text="Resumen: 3 actividades, 100 min en total" />
+
+        <TextView
+            android:id="@+id/labelList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_large"
+            android:text="@string/list_title"
+            android:textSize="@dimen/text_body"
+            android:textStyle="bold" />
+
+        <!-- One multiline TextView rebuilt from the collection; no RecyclerView needed for a short daily list. -->
+        <TextView
+            android:id="@+id/textActivities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_small"
+            android:text="@string/list_empty"
+            android:textSize="@dimen/text_body"
+            tools:text="1. Cálculo — 30 min\n2. Programación — 45 min\n3. Inglés — 25 min" />
+
+    </LinearLayout>
+</ScrollView>
