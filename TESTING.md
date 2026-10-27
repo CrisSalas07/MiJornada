@@ -1,19 +1,19 @@
-# Manual tests — MiJornada
+# Pruebas manuales — MiJornada
 
-Run the cases **in order** on a fresh launch of the app: each row starts from the state the previous row left.
-Exact texts come from `app/src/main/res/values/strings.xml`.
+Ejecute los casos **en orden** sobre un inicio limpio de la app: cada fila parte del estado que dejó la anterior.
+Los textos exactos vienen de `app/src/main/res/values/strings.xml`.
 
-**Device / emulator used:** <!-- AUTHOR: e.g. "Pixel 4a emulator, API 37". -->
+**Dispositivo / emulador utilizado:** <!-- AUTOR: p. ej. "Emulador Pixel 4a, API 37". -->
 
-| # | Input / Action | Expected | Observed | Evidence |
+| # | Entrada / Acción | Esperado | Observado | Evidencia |
 |---|---|---|---|---|
-| T1 | **Empty name.** Nombre: *(empty)*. Minutos: `30`. Tap *Registrar actividad*. | Error on the name field: "Escriba el nombre de la actividad." Cursor in the name field. List still "Aún no hay actividades registradas." | | |
-| T2 | **Empty minutes.** Nombre: `Cálculo`. Minutos: *(empty)*. Tap *Registrar actividad*. | Error on the minutes field: "Escriba los minutos como un número entero." Cursor in minutes. List unchanged (empty). | | |
-| T3 | **Zero minutes.** Nombre: `Cálculo`. Minutos: `0`. Tap *Registrar actividad*. | Error on minutes: "Los minutos deben estar entre 1 y 480." List unchanged (empty). | | |
-| T4 | **Above maximum.** Nombre: `Cálculo`. Minutos: `481`. Tap *Registrar actividad*. | Error on minutes: "Los minutos deben estar entre 1 y 480." List unchanged (empty). | | |
-| T5 | **Lower limit (1).** Nombre: `Lectura`. Minutos: `1`. Tap *Registrar actividad*. | Accepted. List: "1. Lectura — 1 min". Summary: "Resumen: 1 actividad, 1 min en total". Both fields cleared, cursor in name. | | |
-| T6 | **Upper limit (480).** Nombre: `Proyecto`. Minutos: `480`. Tap *Registrar actividad*. | Accepted. List adds "2. Proyecto — 480 min". Summary: "Resumen: 2 actividades, 481 min en total". | | |
-| T7 | **Delete last.** Tap *Eliminar último* once. | "2. Proyecto — 480 min" disappears. List: "1. Lectura — 1 min". Summary: "Resumen: 1 actividad, 1 min en total". | | |
-| T8 | **Delete on empty list.** Tap *Eliminar último* once (list becomes empty), then tap it again. | First tap: list "Aún no hay actividades registradas.", summary "Resumen: 0 actividades, 0 min en total". Second tap: Toast "No hay actividades para eliminar."; nothing else changes. | | |
-| T9 | **Three valid activities.** Register `Cálculo`/`30`, then `Programación`/`45`, then `Inglés`/`25`. | List: "1. Cálculo — 30 min", "2. Programación — 45 min", "3. Inglés — 25 min". Summary: "Resumen: 3 actividades, 100 min en total" (30 + 45 + 25 = 100). | | |
-| T10 | **Rotation with records.** With the three activities of T9, rotate to landscape, then back to portrait. | After each rotation the same three items, in the same order, and "Resumen: 3 actividades, 100 min en total". | | |
+| T1 | **Nombre vacío.** Nombre: *(vacío)*. Minutos: `30`. Toque *Registrar actividad*. | Error en el campo nombre: "Escriba el nombre de la actividad." Cursor en el campo nombre. La lista sigue en "Aún no hay actividades registradas." | | |
+| T2 | **Minutos vacíos.** Nombre: `Cálculo`. Minutos: *(vacío)*. Toque *Registrar actividad*. | Error en el campo minutos: "Escriba los minutos como un número entero." Cursor en minutos. Lista sin cambios (vacía). | | |
+| T3 | **Cero minutos.** Nombre: `Cálculo`. Minutos: `0`. Toque *Registrar actividad*. | Error en minutos: "Los minutos deben estar entre 1 y 480." Lista sin cambios (vacía). | | |
+| T4 | **Sobre el máximo.** Nombre: `Cálculo`. Minutos: `481`. Toque *Registrar actividad*. | Error en minutos: "Los minutos deben estar entre 1 y 480." Lista sin cambios (vacía). | | |
+| T5 | **Límite inferior (1).** Nombre: `Lectura`. Minutos: `1`. Toque *Registrar actividad*. | Aceptada. Lista: "1. Lectura — 1 min". Resumen: "Resumen: 1 actividad, 1 min en total". Ambos campos limpios, cursor en nombre. | | |
+| T6 | **Límite superior (480).** Nombre: `Proyecto`. Minutos: `480`. Toque *Registrar actividad*. | Aceptada. La lista agrega "2. Proyecto — 480 min". Resumen: "Resumen: 2 actividades, 481 min en total". | | |
+| T7 | **Eliminar último.** Toque *Eliminar último* una vez. | "2. Proyecto — 480 min" desaparece. Lista: "1. Lectura — 1 min". Resumen: "Resumen: 1 actividad, 1 min en total". | | |
+| T8 | **Eliminar con lista vacía.** Toque *Eliminar último* una vez (la lista queda vacía) y luego tóquelo otra vez. | Primer toque: lista "Aún no hay actividades registradas.", resumen "Resumen: 0 actividades, 0 min en total". Segundo toque: Toast "No hay actividades para eliminar."; nada más cambia. | | |
+| T9 | **Tres actividades válidas.** Registre `Cálculo`/`30`, luego `Programación`/`45`, luego `Inglés`/`25`. | Lista: "1. Cálculo — 30 min", "2. Programación — 45 min", "3. Inglés — 25 min". Resumen: "Resumen: 3 actividades, 100 min en total" (30 + 45 + 25 = 100). | | |
+| T10 | **Rotación con registros.** Con las tres actividades de T9, rote a horizontal y luego de vuelta a vertical. | Tras cada rotación, los mismos tres elementos en el mismo orden y "Resumen: 3 actividades, 100 min en total". | | |
