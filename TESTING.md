@@ -3,7 +3,7 @@
 Ejecute los casos **en orden** sobre un inicio limpio de la app: cada fila parte del estado que dejó la anterior.
 Los textos exactos vienen de `app/src/main/res/values/strings.xml`.
 
-**Dispositivo / emulador utilizado:** <!-- AUTOR: p. ej. "Emulador Pixel 4a, API 37". -->
+**Dispositivo / emulador utilizado:** Emulador Pixel 4, API 30 (Android 11), imagen Google APIs x86_64, 2 GB de RAM.
 
 | # | Entrada / Acción | Esperado | Observado | Evidencia |
 |---|---|---|---|---|

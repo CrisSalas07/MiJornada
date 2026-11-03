@@ -4,7 +4,7 @@ Aplicación Android nativa para la tarea de IF0009 en la UCR Sede del Sur. El us
 estudio del día (nombre y minutos), las ve como una lista numerada con un resumen actualizado, puede eliminar la
 última y conserva la lista cuando la pantalla rota.
 
-**Autor:** Cristopher <!-- AUTOR: agregue sus apellidos y carné. -->
+**Autor:** Cristopher Mora Salas — C5H509
 **Curso:** IF0009 — Universidad de Costa Rica, Sede del Sur
 
 **Video:** <!-- AUTOR: pegue aquí el enlace del video. -->
@@ -105,12 +105,28 @@ guardar/restaurar es lo que conserva los datos.
 
 ## Dificultades y soluciones
 
-<!-- AUTOR: describa las dificultades que encontró y cómo las resolvió. -->
+- **Plantilla equivocada.** Al crear el proyecto elegí primero *Empty Activity*, que genera un proyecto con Jetpack
+  Compose y no permite seleccionar Java. Lo resolví volviendo atrás y eligiendo *Empty Views Activity*, que genera
+  `MainActivity.java` y `activity_main.xml`.
+- **JDK no definido.** Durante la primera sincronización de Gradle, Android Studio mostró "Project JDK is not
+  defined". Esperé a que terminara la sincronización y usé el JDK incluido en Android Studio (`jbr`).
+- **Compilar desde la terminal.** Para ejecutar `gradlew.bat` fuera de Android Studio tuve que ubicar la carpeta
+  `jbr` de Android Studio y configurar la variable de entorno `JAVA_HOME` con esa ruta.
+- **Emulador demasiado pesado.** El primer emulador (API 37 con Google Play) consumía tanta memoria que Android
+  mostraba "System UI isn't responding" y el resto de programas, como el navegador, dejaban de responder. Eliminé ese
+  dispositivo y su imagen del sistema desde el SDK Manager para liberar espacio.
+- **Elegir un emulador compatible.** Al crear un emulador nuevo, el perfil Pixel 10a solo admitía API 37. Cambié al
+  perfil Pixel 4, que permite API 30, con imagen Google APIs x86_64 y 2 GB de RAM. Con esa configuración el emulador
+  funciona de forma estable.
 
 ## Reflexión
+Una app que uso a diario es WhatsApp. Enviar mensajes y hacer videollamadas depende de Internet; en cambio, leer conversaciones anteriores funciona sin conexión, porque el historial se guarda en el teléfono. Esto me hizo entender que la conexión es una condición que el diseño debe prever, no algo que toda app necesita: MiJornada funciona completamente sin Internet.
 
-<!-- AUTOR: reflexión personal, 300–500 palabras, escrita por usted. -->
+Si un equipo domina Dart y necesita Android e iOS, Flutter le permite escribir la mayor parte de la interfaz y la lógica una sola vez. Sin embargo, no elimina las diferencias entre plataformas: los permisos se declaran por separado en cada sistema, las pruebas deben hacerse en ambos, la publicación sigue procesos distintos en Google Play y en la App Store, y la experiencia de usuario debe respetar las convenciones de cada sistema.
 
+En mi solución separé las reglas del problema de lo que depende de Android. Las reglas están en el paquete `model`: los minutos deben estar entre 1 y 480, el nombre no puede estar vacío, el total es la suma de la lista y eliminar quita el último registro. Estas clases no importan nada de Android, por eso se pueden probar con JUnit sin emulador. Lo que depende de Android está en `MainActivity` y en el XML: el layout, `findViewById`, `setOnClickListener` y el `Bundle` que conserva la lista al rotar la pantalla.
+
+Esa separación es la base para trasladar la app a Flutter. Las clases del modelo podrían pasarse a Dart casi línea por línea. Lo que sí cambia es la interfaz: el XML se convierte en un árbol de widgets, `setOnClickListener` pasa a ser `onPressed` y la pantalla se reconstruye a partir del estado. Como ya he trabajado con Flutter, espero que la interfaz me resulte más rápida de construir; lo que tendré que estudiar es cómo conservar el estado, ya que el `Bundle` no tiene un equivalente directo.
 ## Fuentes
 
 - Android Developers — Ciclo de vida de la Activity y guardado del estado de la UI:
@@ -124,8 +140,10 @@ guardar/restaurar es lo que conserva los datos.
   <https://developer.android.com/guide/topics/ui/accessibility/apps>
 - Android Developers — Crear pruebas unitarias locales: <https://developer.android.com/training/testing/local-tests>
 - JUnit 4: <https://junit.org/junit4/>
-<!-- AUTOR: agregue la guía del curso y cualquier otro material que haya usado. -->
 
 ## Uso de IA
 
-<!-- AUTOR: declaración de uso de IA, escrita por usted. -->
+Para este trabajo utilicé Claude (Anthropic) como apoyo en dos aspectos. El primero fue el uso de Android Studio:
+elegir la plantilla correcta, configurar el JDK y la variable `JAVA_HOME`, y crear un emulador adecuado para mi
+computadora cuando el primero no funcionaba bien. El segundo fue el código: parcialmente lo utice para resolver errores
+que surgian al ejecutar o crear una seccion.
